@@ -1,0 +1,11 @@
+{
+  "name": "pay2way",
+  "version": "1.0.0",
+  "description": "Pacote de integração com gateways de pagamento",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "",
+  "license": "ISC"
+}
