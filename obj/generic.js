@@ -5,7 +5,6 @@ class Generic {
         this.objValidator = new CommonValidator(obj);
         this.objValidator.genericValidation();
         const validationResult = this.objValidator.validationResult();
-
         if (validationResult.isValid) {
             this.init(obj);
         }
@@ -23,36 +22,38 @@ class Generic {
         };
 
         this.transaction = {
+            gateway: this.gateway,
             customer_ip: !obj.customer_ip ? '127.0.0.1' : obj.customer_ip,
-            customerInfo = {
+            customerInfo: {
                 name: customerInfo.name,
                 email: customerInfo.email,
                 document: customerInfo.document,
-                birthDate = customerInfo.birthDate,
-                contactInfo = {
+                birthDate: customerInfo.birthDate,
+                contactInfo: {
                     phone: customerInfo.phone,
                     cellphone: customerInfo.cellphone
                 },
-                billingInfo = {
-                    street: billingInfo.adress.street,
-                    number: billingInfo.adress.number,
-                    complement: billingInfo.adress.complement,
-                    neighborhood: billingInfo.adress.neighborhood,
+                billingInfo: {
+                    street: billingInfo.street,
+                    number: billingInfo.number,
+                    complement: billingInfo.complement,
+                    neighborhood: billingInfo.neighborhood,
                     city: billingInfo.city,
                     state: billingInfo.state,
                     postalCode: billingInfo.postalCode
 
                 },
             }, 
-            paymentInfo = {
+            paymentInfo: {
                 amount: paymentInfo.amount,
                 fee: paymentInfo.fee,
                 totalAmount: paymentInfo.totalAmount,
                 duedate: paymentInfo.duedate,
-                paymentData: new this.setGenericPaymentData(paymentInfo.payment),
+                paymentData: this.setGenericPaymentData(paymentInfo.payment),
                 split: this.setGenericSplit(paymentInfo.split)
             },
-            products: this.setGenericProduct(products)
+            products: this.setGenericProduct(products),
+            errors: this.errors
         }        
     }
 
@@ -61,19 +62,19 @@ class Generic {
             case utilEnum.paymentMethods.CREDIT_CARD:
                 return {
                     type: utilEnum.paymentMethods.CREDIT_CARD,
-                    creditCardInfo = { 
+                    creditCardInfo: { 
                         card_name: data.card.card_name,
                         card_number: data.card.card_number,
                         card_expdate_month: data.card.card_expdate_month,
                         card_expdate_year: data.card.card_expdate_year,
                         card_cvv: data.card.card_cvv,
-                        split: this.paymentInfo.paymentData.split
+                        split: data.card.split
                     }
                 };
             case utilEnum.paymentMethods.DEBIT_CARD:
                 return {
                     type: utilEnum.paymentMethods.DEBIT_CARD,
-                    debitCardInfo = { 
+                    debitCardInfo: { 
                         card_name: data.card.card_name,
                         card_number: data.card.card_number,
                         card_expdate_month: data.card.card_expdate_month,
@@ -84,14 +85,14 @@ class Generic {
             case utilEnum.paymentMethods.BOLETO:
                 return {
                     type: utilEnum.paymentMethods.BOLETO,
-                    boletoInfo = { 
+                    boletoInfo: { 
                        //TODO implement payments with boletos
                     }
                 };
             case utilEnum.paymentMethods.PIX:
                 return {
                     type: utilEnum.paymentMethods.PIX,
-                    pixInfo = { 
+                    pixInfo: { 
                         pixKey: data.pix.pixKey,
                         pixIncludeImage: data.pix.pixKey,
                     }
@@ -110,6 +111,8 @@ class Generic {
                 afiliate_identifier: split.afiliateIdentifier
             });
         });
+
+        return splits;
     }
 
     setGenericProduct(data) {
@@ -122,6 +125,12 @@ class Generic {
             code: product.code
             });
         });
+
+        return products;
+    }
+
+    getTransactionGeneric() {
+        return this.transaction;
     }
 }
 

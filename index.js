@@ -1,34 +1,33 @@
-const YapayValidator = require('./lib/validators/yapayValidator')
-const Pagarme = require('./lib/gateways/pagarme');
-const Juno = require('./lib/gateways/junoapi');
+const YapayValidator = require('./lib/validators/yapayValidator');
+const Generic = require('./obj/generic');
+const paymentGateways = require('./obj/enum/enum');
 
-const transactionResult = { };
+let transactionResult = { };
 
 class Payment {
     constructor(body) {
-        switch(body.gateway.type){
-            case paymentGateways.YAPAY:
-                this.paymentInfo = new 
-                this.gateway = new YapayValidator(body);
-                break;
-            case paymentGateways.PAGARME:
-                this.gateway = new Pagarme(body.payment);
-                break;
-            case paymentGateways.JUNO:
-                this.gateway = new Juno(body.payment);
-                break;
-            default:
-                this.gateway = { isValid: false, errors: 'The gateway entered is invalid' };
+        if(!body.gateway) 
+        {
+            this.gateway = {};
+            this.gateway.errors = { isValid: false, errors: 'The gateway entered is invalid' };
+        }else {
+            switch(body.gateway.type){
+                case paymentGateways.supportedGateways.YAPAY:
+                    const generic = new Generic(body).getTransactionGeneric();
+                    if(generic.errors)       
+                    console.log(JSON.stringify(errors));   
+
+                    this.gateway = new YapayValidator(generic).validateYapayObj();
+                    break;
+                default:
+                    this.gateway.errors = { isValid: false, errors: 'The gateway entered is invalid' };
+            }
         }
     }
 
     processPayment() {
-        if(typeof this.gateway.errors === 'undefined') {
-            transactionResult = this.gateway.doPay();
-
-            //TODO do something with result
-
-            //return data
+        if(!this.gateway.errors) {
+            transactionResult = this.gateway.doTransaction();
             return transactionResult;
         }else {
             return this.gateway.errors;
