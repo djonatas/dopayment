@@ -2,12 +2,6 @@ const YapayValidator = require('./lib/validators/yapayValidator')
 const Pagarme = require('./lib/gateways/pagarme');
 const Juno = require('./lib/gateways/junoapi');
 
-const paymentGateways = {
-    YAPAY: 1,
-    PAGARME: 2,
-    JUNO: 3
-};
-
 const transactionResult = { };
 
 class Payment {
@@ -30,12 +24,12 @@ class Payment {
 
     processPayment() {
         if(typeof this.gateway.errors === 'undefined') {
-            this.transactionResult = this.gateway.doPay();
+            transactionResult = this.gateway.doPay();
 
             //TODO do something with result
 
             //return data
-            return this.transactionResult;
+            return transactionResult;
         }else {
             return this.gateway.errors;
         }

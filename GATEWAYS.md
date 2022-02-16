@@ -220,13 +220,12 @@
             
         },
 
-        "affiliates":[  
-                {  
-                    "email":"emaildoafiliado@afiliado.com",
-                    "percentage":"15"
-                }
-            ],
-            "payment":{  
+        "affiliates":[{  
+                "email":"emaildoafiliado@afiliado.com",
+                "percentage":"15"
+            }
+        ],
+        "payment":{  
             "payment_method_id":"3",
             "card_name": "DIANA PRINCE",
             "card_number": "4111111111111111",
@@ -234,7 +233,7 @@
             "card_expdate_year": "2021",
             "card_cvv": "644",
             "split": "1"
-            }
+        }
     }
 
 # ESTRUTURA DE DADOS
