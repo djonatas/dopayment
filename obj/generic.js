@@ -23,6 +23,7 @@ class Generic {
         };
 
         this.transaction = {
+            customer_ip: !obj.customer_ip ? '127.0.0.1' : obj.customer_ip,
             customerInfo = {
                 name: customerInfo.name,
                 email: customerInfo.email,
@@ -39,7 +40,7 @@ class Generic {
                     neighborhood: billingInfo.adress.neighborhood,
                     city: billingInfo.city,
                     state: billingInfo.state,
-                    postCode: billingInfo.postCode
+                    postalCode: billingInfo.postalCode
 
                 },
             }, 
@@ -48,10 +49,10 @@ class Generic {
                 fee: paymentInfo.fee,
                 totalAmount: paymentInfo.totalAmount,
                 duedate: paymentInfo.duedate,
-                paymentData: new setGenericPaymentData(paymentInfo.payment),
-                split: setGenericSplit(paymentInfo.split)
+                paymentData: new this.setGenericPaymentData(paymentInfo.payment),
+                split: this.setGenericSplit(paymentInfo.split)
             },
-            products: setGenericProduct(products)
+            products: this.setGenericProduct(products)
         }        
     }
 
@@ -65,7 +66,8 @@ class Generic {
                         card_number: data.card.card_number,
                         card_expdate_month: data.card.card_expdate_month,
                         card_expdate_year: data.card.card_expdate_year,
-                        card_cvv: data.card.card_cvv
+                        card_cvv: data.card.card_cvv,
+                        split: this.paymentInfo.paymentData.split
                     }
                 };
             case utilEnum.paymentMethods.DEBIT_CARD:
@@ -114,7 +116,7 @@ class Generic {
         let products = [];
         data.forEach(product => {
             products.push({
-            amount: product.amount,
+            price: product.price,
             description: product.description,
             quantity: product.quantity,
             code: product.code
