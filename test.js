@@ -3,7 +3,7 @@ const doPayment = require('./index');
 const transaction = {
     gateway: {
     env: 'prod',
-    type: 1,
+    type: 3,
     token: 'syhdfvgadsvfadghvhgfv'
 	},
     customer_ip: '127.0.0.1',
@@ -34,6 +34,7 @@ const transaction = {
         duedate: '16/02/2000',
         payment:  { 
 			paymentMethod: 1,
+            statement_descriptor: 'MINHA ECOMMERCE',
 			card: {
 	            card_name: 'JOAO SILVA',
 	            card_number: '1111111111111111',

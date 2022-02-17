@@ -30,8 +30,8 @@ class Generic {
                 document: customerInfo.document,
                 birthDate: customerInfo.birthDate,
                 contactInfo: {
-                    phone: customerInfo.phone,
-                    cellphone: customerInfo.cellphone
+                    phone: customerInfo.contactInfo.phone,
+                    cellphone: customerInfo.contactInfo.cellphone
                 },
                 billingInfo: {
                     street: billingInfo.street,
@@ -62,6 +62,7 @@ class Generic {
             case utilEnum.paymentMethods.CREDIT_CARD:
                 return {
                     type: utilEnum.paymentMethods.CREDIT_CARD,
+                    statement_descriptor: data.statement_descriptor,
                     creditCardInfo: { 
                         card_name: data.card.card_name,
                         card_number: data.card.card_number,
@@ -74,6 +75,7 @@ class Generic {
             case utilEnum.paymentMethods.DEBIT_CARD:
                 return {
                     type: utilEnum.paymentMethods.DEBIT_CARD,
+                    statement_descriptor: data.statement_descriptor,
                     debitCardInfo: { 
                         card_name: data.card.card_name,
                         card_number: data.card.card_number,
@@ -108,7 +110,7 @@ class Generic {
             splits.push({
                 percentage: split.percentage,
                 amount: split.amount,
-                afiliate_identifier: split.afiliateIdentifier
+                afiliate_identifier: split.afiliate_identifier
             });
         });
 

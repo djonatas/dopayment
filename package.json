@@ -9,6 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "juno-api": "^0.2.2",
+    "pagarme": "^4.21.1",
     "yapay-node": "^0.1.9"
   }
 }
