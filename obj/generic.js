@@ -18,7 +18,10 @@ class Generic {
         this.gateway = {
             env: !gateway.env ? 'prod' : gateway.env,
             type: gateway.type,
-            token: gateway.token
+            token: gateway.token,
+            clientId: gateway.clientId,
+            clientSecret: gateway.clientSecret,
+            resourceToken: gateway.resourceToken
         };
 
         this.transaction = {

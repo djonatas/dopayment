@@ -2,9 +2,12 @@ const doPayment = require('./index');
 
 const transaction = {
     gateway: {
-    env: 'prod',
-    type: 3,
-    token: 'syhdfvgadsvfadghvhgfv'
+    env: 'sandbox',
+    type: 1,
+    token: '689fe612f4e2089',
+    clientId: 'K8f87L6uLdAeGoKJ',
+    clientSecret: 'qn1)Vy1Q(d$[{gV$aIN{QC!1{_7Gz^',
+    resourceToken: '8BBBD0B32384C36FEC491ECEFE094CEBFE55CCF0F6ADAE9CEC035C9B6204B32B715683B1A520C610'
 	},
     customer_ip: '127.0.0.1',
     customerInfo: {
@@ -13,8 +16,8 @@ const transaction = {
         document: '43822043800',
         birthDate: '18/02/2000',
         contactInfo: {
-            phone: '12123456',
-            cellphone: '12854723698'
+            phone: '+5511999998888',
+            cellphone: '+5511999998888'
         },
         billingInfo: {
             street: 'Rua do Joao da Silva',
@@ -23,7 +26,7 @@ const transaction = {
             neighborhood: 'Bairro da Silva',
             city: 'Sao Jose dos Campos',
             state: 'SP',
-            postalCode: '12345-678'
+            postalCode: '12345678'
 
         },
     }, 
@@ -36,11 +39,11 @@ const transaction = {
 			paymentMethod: 1,
             statement_descriptor: 'MINHA ECOMMERCE',
 			card: {
-	            card_name: 'JOAO SILVA',
-	            card_number: '1111111111111111',
-	            card_expdate_month: 2,
-	            card_expdate_year: 2028,
-	            card_cvv: 123,
+	            card_name: 'STEPHEN STRANGE',
+	            card_number: '4111111111111111',
+	            card_expdate_month: 01,
+	            card_expdate_year: 2021,
+	            card_cvv: 644,
 	            split: 2
 			}
 
@@ -76,5 +79,11 @@ const transaction = {
     }]
 };
 
-//FORCE GLOBAL ERROR
-new doPayment(transaction).processPayment();
+const dopay = new doPayment(transaction);
+
+const start = async function(a, b) {
+    const result = await dopay.processPayment()
+    console.log(result)
+}
+  
+start();

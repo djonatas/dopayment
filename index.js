@@ -42,10 +42,14 @@ class Payment {
         }
     }
 
-    processPayment() {
+    async processPayment() {
         if(!this.gateway.errors) {
-            transactionResult = this.gateway.doTransaction();
-            return transactionResult;
+            try {
+                transactionResult = await this.gateway.doTransaction();
+                return transactionResult;
+            } catch (error) {
+                return error;
+            }
         }else {
             return this.gateway.errors;
         }
