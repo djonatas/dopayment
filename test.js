@@ -3,10 +3,11 @@ const doPayment = require('./index');
 const transaction = {
     gateway: {
     env: 'sandbox',
-    type: 2,
-    token: 'ak_test_cHeJ72DhMFrtKmzO4X5yNgCCA1j1AQ',
+    type: 1,
+    token: '0cfbff7140a2865',
     clientId: 'K8f87L6uLdAeGoKJ',
     clientSecret: 'qn1)Vy1Q(d$[{gV$aIN{QC!1{_7Gz^',
+    notificationUrl: 'www.google.com',
     resourceToken: '8BBBD0B32384C36FA215B08D5C42F854303CFAAEF978A5E7C8B5829C0273854B'
 	},
     customer_ip: '127.0.0.1',
@@ -42,7 +43,7 @@ const transaction = {
 	            card_name: 'STEPHEN STRANGE',
 	            card_number: '4111111111111111',
 	            card_expdate_month: '01',
-	            card_expdate_year: '2021',
+	            card_expdate_year: '2023',
 	            card_cvv: '644',
 	            split: 2
 			}
